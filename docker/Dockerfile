@@ -1,13 +1,14 @@
 ######
-FROM node:12.18.3-buster-slim AS builder
+FROM node:20.14-buster-slim AS builder
 ENV ROOT=/code
+ENV NODE_OPTIONS=--openssl-legacy-provider
 WORKDIR $ROOT
 COPY ui $ROOT
 RUN npm install && \
     npm run build
 
 ######
-FROM node:12.18.3-buster-slim
+FROM node:20.14-buster-slim
 ARG BUILD_DATE
 ARG VERSION
 ARG VCS_REF
